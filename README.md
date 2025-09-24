@@ -24,7 +24,7 @@ ModFedLts/
 ### Aplicações
 
 - **Shell** (`apps/shell`): Aplicação host que orquestra os microfrontends
-- **GIS** (`apps/gis`): Microfrontend remoto que expõe rotas específicas
+- **GIS** (`apps/gis`): Microfrontend remote que expõe rotas específicas
 
 ## 🚀 Início Rápido
 
@@ -38,7 +38,7 @@ npm install
 ### 2. Executar em Desenvolvimento
 
 ```bash
-# Executar a aplicação shell com o remoto GIS
+# Executar a aplicação shell com o remote GIS
 nx serve shell --open --devRemotes=gis
 
 # Ou executar apenas o shell (sem remotes)
@@ -48,7 +48,7 @@ nx serve shell --open
 ### 3. Executar Aplicações Separadamente
 
 ```bash
-# Terminal 1 - Executar o remoto GIS
+# Terminal 1 - Executar o remote GIS
 nx serve gis
 
 # Terminal 2 - Executar o shell
@@ -59,10 +59,22 @@ nx serve shell --open
 
 ### Desenvolvimento
 ```bash
+# Criar um novo workspace Nx
+npx create-nx-workspace@latest mod-fed --preset=apps
+
+# Adicionar dependências
+npx nx add @nx/angular@latest
+
+# Criar um host
+npx nx g @nx/angular:host shell --remotes=gis --addTailwind=true --e2eTestRunner=none
+
+# Criar um remote
+npx nx g @nx/angular:remote gis --host=shell --addTailwind=true --e2eTestRunner=none
+
 # Servir shell com todos os remotes
 nx serve shell --devRemotes=gis
 
-# Servir apenas um remoto específico
+# Servir apenas um remote específico
 nx serve gis
 
 # Build para produção
